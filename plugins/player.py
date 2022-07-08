@@ -343,7 +343,7 @@ async def play(_, message: Message):
     for x in clientbot.pytgcalls.active_calls:
         ACTV_CALLS.append(int(x.chat_id))
     if int(chat_id) in ACTV_CALLS:
-        position = await queues.put(chat_id, file=file_path)
+        position = await queues.put(message.chat.id, file=file_path)
         await message.reply_photo(
             photo="final.png",
             reply_markup=keyboard,

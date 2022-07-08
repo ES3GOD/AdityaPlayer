@@ -81,16 +81,6 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     Image.alpha_composite(image5, image6).save("temp.png")
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("resource/font.otf", 32)
-    draw.text((190, 550), f"Title: {title[:50]} ...", (255, 255, 255), font=font)
-    draw.text((190, 590), f"Duration: {duration}", (255, 255, 255), font=font)
-    draw.text((190, 630), f"Views: {views}", (255, 255, 255), font=font)
-    draw.text(
-        (190, 670),
-        f"Powered By: Aditya Halder (@AdityaHalder)",
-        (255, 255, 255),
-        font=font,
-    )
     img.save("final.png")
     os.remove("temp.png")
     os.remove("background.png")
@@ -161,7 +151,7 @@ async def play(_, message: Message):
 
         file_name = get_file_name(audio)
         title = file_name
-        thumb_name = "https://te.legra.ph/file/ed6920a2f0ab5af3fd55d.png"
+        thumb_name = "https://telegra.ph/file/2f7d83f10057c56fa3382.jpg"
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         views = "Locally added"
@@ -218,7 +208,7 @@ async def play(_, message: Message):
 
         except Exception as e:
             title = "NaN"
-            thumb_name = "https://te.legra.ph/file/ed6920a2f0ab5af3fd55d.png"
+            thumb_name = "https://telegra.ph/file/2f7d83f10057c56fa3382.jpg"
             duration = "NaN"
             views = "NaN"
             keyboard = InlineKeyboardMarkup(

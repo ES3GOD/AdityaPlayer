@@ -379,7 +379,6 @@ async def stop(_, message: Message)
     except QueueEmpty:
         pass
 
-    await message.delete()
     await clientbot.pytgcalls.leave_group_call(message.chat.id)
     await message.reply_text("**⏹️ Music Ended**")
 

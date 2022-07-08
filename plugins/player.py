@@ -15,6 +15,7 @@ from modules.clientbot.clientbot import client as USER
 from modules.helpers.admins import get_administrators
 from youtube_search import YoutubeSearch
 from modules import converter
+from PIL import Image, ImageFont, ImageDraw, ImageFilter
 from modules.downloaders import youtube
 from modules.config import DURATION_LIMIT, que, SUDO_USERS
 from modules.cache.admins import admins as a

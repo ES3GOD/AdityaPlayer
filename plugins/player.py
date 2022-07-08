@@ -93,6 +93,7 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     & ~filters.via_bot
 )
 async def play(_, message: Message):
+    await message.delete()
     global que
     global useer
     
@@ -323,6 +324,7 @@ async def play(_, message: Message):
 @errors
 @authorized_users_only
 async def pause(_, message: Message):
+    await message.delete()
     await clientbot.pytgcalls.pause_stream(message.chat.id)
     await message.reply_text("**⏸️ Paused**")
 
@@ -331,6 +333,7 @@ async def pause(_, message: Message):
 @errors
 @authorized_users_only
 async def resume(_, message: Message):
+    await message.delete()
     await clientbot.pytgcalls.resume_stream(message.chat.id)
     await message.reply_text("**🔁 Resumed**")
 
@@ -340,6 +343,7 @@ async def resume(_, message: Message):
 @errors
 @authorized_users_only
 async def skip(_, message: Message):
+    await message.delete()
     global que
     ACTV_CALLS = []
     chat_id = message.chat.id
@@ -369,7 +373,8 @@ async def skip(_, message: Message):
 @Client.on_message(commandpro(["/end", "end", "/stop", "stop", "x"]) & other_filters)
 @errors
 @authorized_users_only
-async def stop(_, message: Message):
+async def stop(_, message: Message)
+    await message.delete()
     try:
         clientbot.queues.clear(message.chat.id)
     except QueueEmpty:
@@ -383,6 +388,7 @@ async def stop(_, message: Message):
 @errors
 @authorized_users_only
 async def admincache(client, message: Message):
+    await message.delete()
     set(
         message.chat.id,
         (

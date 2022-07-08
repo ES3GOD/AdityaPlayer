@@ -346,8 +346,9 @@ async def play(_, message: Message):
         position = await queues.put(chat_id, file=file_path)
         await message.reply_photo(
             photo="final.png",
-            caption="**➕ Added to Queue**".format(position),
-            reply_markup=keyboard,
+            caption="**[Get Additional Information 💡]({})**\n\n**⑆ User :** **{}**\n**⑆ Group : [{}..](https://t.me/codexun)**".format(
+                url, message.from_user.mention(), message.chat.title
+            ),
         )
     else:
         await clientbot.pytgcalls.join_group_call(
@@ -363,12 +364,13 @@ async def play(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             reply_markup=keyboard,
-            caption="**▶️ Playing now**".format(),
-           )
+            caption="**[Get Additional Information 💡]({})**\n\n**⑆ User :** **{}**\n**⑆ Group : [{}..](https://t.me/codexun)**".format(
+                url, message.from_user.mention(), message.chat.title
+            ),
+        )
 
     os.remove("final.png")
     return await lel.delete()
-    
     
 @Client.on_message(commandpro(["/pause", "pause"]) & other_filters)
 @errors
@@ -442,7 +444,4 @@ async def admincache(client, message: Message):
         ),
     )
 
-    await message.reply_photo(
-                              photo="https://te.legra.ph/file/02306701e296bcf8634fa.png",
-                              caption="**🔄 Reloaded**"
-    )
+    await message.reply_text("**🔄 Reloaded**")

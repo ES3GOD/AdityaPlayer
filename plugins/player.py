@@ -16,7 +16,7 @@ from modules.helpers.admins import get_administrators
 from youtube_search import YoutubeSearch
 from modules import converter
 from modules.downloaders import youtube
-from modules.config import DURATION_LIMIT, que, SUDO_USERS, BOT_NAME
+from modules.config import DURATION_LIMIT, que, SUDO_USERS
 from modules.cache.admins import admins as a
 from modules.helpers.filters import command, other_filters
 from modules.helpers.command import commandpro
@@ -30,9 +30,7 @@ from pytgcalls.types.input_stream import InputAudioStream
 
 # plus
 chat_id = None
-DISABLED_GROUPS = []
 useer = "NaN"
-flex = {}
 
 
 def transcode(filename):
@@ -54,22 +52,8 @@ def convert_seconds(seconds):
 # Convert hh:mm:ss to seconds
 def time_to_seconds(time):
     stringt = str(time)
-    return sum(int(x) * 60**i for i, x in enumerate(reversed(stringt.split(":"))))
+    return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
 
-
-def truncate(text):
-    list = text.split(" ")
-    text1 = ""
-    text2 = ""    
-    for i in list:
-        if len(text1) + len(i) < 27:        
-            text1 += " " + i
-        elif len(text2) + len(i) < 25:        
-            text2 += " " + i
-
-    text1 = text1.strip()
-    text2 = text2.strip()     
-    return [text1,text2]
 
 # Change image size
 def changeImageSize(maxWidth, maxHeight, image):
@@ -77,8 +61,7 @@ def changeImageSize(maxWidth, maxHeight, image):
     heightRatio = maxHeight / image.size[1]
     newWidth = int(widthRatio * image.size[0])
     newHeight = int(heightRatio * image.size[1])
-    newImage = image.resize((newWidth, newHeight))
-    return newImage
+    return image.resize((newWidth, newHeight))
 
 
 async def generate_cover(requested_by, title, views, duration, thumbnail):
@@ -110,8 +93,7 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     )
     img.save("final.png")
     os.remove("temp.png")
-    os.remove("background.png"
-
+    os.remove("background.png")
 
 @Client.on_message(
     commandpro(["/play", "/yt", "/ytp", "play", "yt", "ytp", "@", "#"])

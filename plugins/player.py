@@ -63,7 +63,6 @@ def changeImageSize(maxWidth, maxHeight, image):
     newHeight = int(heightRatio * image.size[1])
     return image.resize((newWidth, newHeight))
 
-
 async def generate_cover(requested_by, title, views, duration, thumbnail):
     async with aiohttp.ClientSession() as session:
         async with session.get(thumbnail) as resp:
@@ -72,28 +71,58 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
                 await f.write(await resp.read())
                 await f.close()
 
-    image1 = Image.open("./background.png")
-    image2 = Image.open("resource/20220708_115846.png")
-    image3 = changeImageSize(1280, 720, image1)
-    image4 = changeImageSize(1280, 720, image2)
-    image5 = image3.convert("RGBA")
-    image6 = image4.convert("RGBA")
-    Image.alpha_composite(image5, image6).save("temp.png")
-    img = Image.open("temp.png")
-    draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("resource/font.otf", 32)
-    draw.text((190, 550), f"Title: {title[:50]} ...", (255, 255, 255), font=font)
-    draw.text((190, 590), f"Duration: {duration}", (255, 255, 255), font=font)
-    draw.text((190, 630), f"Views: {views}", (255, 255, 255), font=font)
-    draw.text(
-        (190, 670),
-        f"Powered By: Aditya Halder (@AdityaHalder)",
-        (255, 255, 255),
-        font=font,
-    )
-    img.save("final.png")
-    os.remove("temp.png")
-    os.remove("background.png")
+    image = Image.open(f"./background.png")
+    black = Image.open("etc/black.jpg")
+    img = Image.open("etc/CodexunSq.png")
+    image5 = changeImageSize(1280, 720, img)
+    image1 = changeImageSize(1280, 720, image)
+    image1 = image1.filter(ImageFilter.BoxBlur(10))
+    image11 = changeImageSize(1280, 720, image)
+    image1 = image11.filter(ImageFilter.BoxBlur(10))
+    image2 = Image.blend(image1,black,0.6)
+
+    # Cropping circle from thubnail
+    image3 = image11.crop((280,0,1000,720))
+    #lum_img = Image.new('L', [720,720] , 0)
+   # draw = ImageDraw.Draw(lum_img)
+   # draw.pieslice([(0,0), (720,720)], 0, 360, fill = 255, outline = "white")
+   # img_arr =np.array(image3)
+    #lum_img_arr =np.array(lum_img)
+    #final_img_arr = np.dstack((img_arr,lum_img_arr))
+    #image3 = Image.fromarray(final_img_arr)
+    image3 = image3.resize((500,500))
+    
+
+    image2.paste(image3, (100,115))
+    image2.paste(image5, mask = image5)
+
+    # fonts
+    font1 = ImageFont.truetype(r'etc/Codexun.otf', 30)
+    font2 = ImageFont.truetype(r'etc/Codexun.otf', 60)
+    font3 = ImageFont.truetype(r'etc/Codexun.otf', 49)
+    font4 = ImageFont.truetype(r'etc/Mukta-ExtraBold.ttf', 35)
+
+    image4 = ImageDraw.Draw(image2)
+
+    # title
+    title1 = truncate(title)
+    image4.text((670, 280), text=title1[0], fill="white", font = font3, align ="left") 
+    image4.text((670, 332), text=title1[1], fill="white", font = font3, align ="left") 
+
+    # description
+    views = f"Views : {views}"
+    duration = f"Duration : {duration} minutes"
+    channel = f"Request : {BOT_NAME} Bot"
+
+    image4.text((670, 410), text=views, fill="white", font = font4, align ="left") 
+    image4.text((670, 460), text=duration, fill="white", font = font4, align ="left") 
+    image4.text((670, 510), text=channel, fill="white", font = font4, align ="left")
+
+    
+    image2.save(f"final.png")
+    os.remove(f"background.png")
+    final = f"temp.png"
+    return final
 
 
 @Client.on_message(

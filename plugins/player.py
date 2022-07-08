@@ -374,12 +374,12 @@ async def skip(_, message: Message):
 @errors
 @authorized_users_only
 async def stop(_, message: Message)
-    await message.delete()
     try:
         clientbot.queues.clear(message.chat.id)
     except QueueEmpty:
         pass
 
+    await message.delete()
     await clientbot.pytgcalls.leave_group_call(message.chat.id)
     await message.reply_text("**⏹️ Music Ended**")
 
@@ -388,7 +388,6 @@ async def stop(_, message: Message)
 @errors
 @authorized_users_only
 async def admincache(client, message: Message):
-    await message.delete()
     set(
         message.chat.id,
         (

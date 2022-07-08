@@ -35,7 +35,8 @@ async def _human_time_duration(seconds):
 )
 async def start_private(client: Client, message: Message):
     await message.reply_text(
-        f"""**👋 Hello! Welcome To Music Bot Based On Pyrogram**""",
+        f"""**👋 Hello!**
+**Welcome To Music Bot Based On Pyrogram**""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [

@@ -30,7 +30,9 @@ from pytgcalls.types.input_stream import InputAudioStream
 
 # plus
 chat_id = None
+DISABLED_GROUPS = []
 useer = "NaN"
+flex = {}
 
 
 def transcode(filename):
@@ -52,8 +54,22 @@ def convert_seconds(seconds):
 # Convert hh:mm:ss to seconds
 def time_to_seconds(time):
     stringt = str(time)
-    return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
+    return sum(int(x) * 60**i for i, x in enumerate(reversed(stringt.split(":"))))
 
+
+def truncate(text):
+    list = text.split(" ")
+    text1 = ""
+    text2 = ""    
+    for i in list:
+        if len(text1) + len(i) < 27:        
+            text1 += " " + i
+        elif len(text2) + len(i) < 25:        
+            text2 += " " + i
+
+    text1 = text1.strip()
+    text2 = text2.strip()     
+    return [text1,text2]
 
 # Change image size
 def changeImageSize(maxWidth, maxHeight, image):
@@ -61,7 +77,9 @@ def changeImageSize(maxWidth, maxHeight, image):
     heightRatio = maxHeight / image.size[1]
     newWidth = int(widthRatio * image.size[0])
     newHeight = int(heightRatio * image.size[1])
-    return image.resize((newWidth, newHeight))
+    newImage = image.resize((newWidth, newHeight))
+    return newImage
+
 
 async def generate_cover(requested_by, title, views, duration, thumbnail):
     async with aiohttp.ClientSession() as session:
@@ -273,7 +291,7 @@ async def play(_, message: Message):
     else:
         if len(message.command) < 2:
             return await lel.edit(
-                "**🤖 Ɠɩⱱɘ 🙃 Ɱʋsɩƈ 💿 Ɲɑɱɘ 😍\n💞 Ƭø 🔊 Ƥɭɑy 🌷...**"
+                "**🔍 Provide me a song name**"
             )
         await lel.edit("**🔍 Processing...**")
         query = message.text.split(None, 1)[1]

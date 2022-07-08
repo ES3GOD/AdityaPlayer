@@ -324,7 +324,6 @@ async def play(_, message: Message):
 @errors
 @authorized_users_only
 async def pause(_, message: Message):
-    await message.delete()
     await clientbot.pytgcalls.pause_stream(message.chat.id)
     await message.reply_text("**⏸️ Paused**")
 
@@ -333,7 +332,6 @@ async def pause(_, message: Message):
 @errors
 @authorized_users_only
 async def resume(_, message: Message):
-    await message.delete()
     await clientbot.pytgcalls.resume_stream(message.chat.id)
     await message.reply_text("**🔁 Resumed**")
 
@@ -343,7 +341,6 @@ async def resume(_, message: Message):
 @errors
 @authorized_users_only
 async def skip(_, message: Message):
-    await message.delete()
     global que
     ACTV_CALLS = []
     chat_id = message.chat.id

@@ -49,6 +49,19 @@ def convert_seconds(seconds):
     seconds %= 60
     return "%02d:%02d" % (minutes, seconds)
 
+def truncate(text):
+    list = text.split(" ")
+    text1 = ""
+    text2 = ""    
+    for i in list:
+        if len(text1) + len(i) < 27:        
+            text1 += " " + i
+        elif len(text2) + len(i) < 25:        
+            text2 += " " + i
+
+    text1 = text1.strip()
+    text2 = text2.strip()     
+    return [text1,text2]
 
 # Convert hh:mm:ss to seconds
 def time_to_seconds(time):

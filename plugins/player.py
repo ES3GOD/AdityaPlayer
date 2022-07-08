@@ -331,10 +331,7 @@ async def play(_, message: Message):
 @authorized_users_only
 async def pause(_, message: Message):
     await clientbot.pytgcalls.pause_stream(message.chat.id)
-    await message.reply_photo(
-                             photo="https://te.legra.ph/file/f2b5739b266e05c9a2909.png", 
-                             caption="**⏸️ Paused**"
-    )
+    await message.reply_text("**⏸️ Paused**")
 
 
 @Client.on_message(commandpro(["/resume", "resume"]) & other_filters)
@@ -342,10 +339,7 @@ async def pause(_, message: Message):
 @authorized_users_only
 async def resume(_, message: Message):
     await clientbot.pytgcalls.resume_stream(message.chat.id)
-    await message.reply_photo(
-                             photo="https://te.legra.ph/file/391e636040ae189c23cdb.png", 
-                             caption="**🔁 Resumed**"
-    )
+    await message.reply_text("**🔁 Resumed**")
 
 
 
@@ -376,10 +370,7 @@ async def skip(_, message: Message):
             )
 
 
-    await message.reply_photo(
-                             photo="https://te.legra.ph/file/4e92cde4f29dbecffb7a7.png", 
-                             caption=f'**⏩ Skipped**'
-   ) 
+    await message.reply_text("**⏩ Skipped**")
 
 
 @Client.on_message(commandpro(["/end", "end", "/stop", "stop", "x"]) & other_filters)
@@ -392,10 +383,7 @@ async def stop(_, message: Message):
         pass
 
     await clientbot.pytgcalls.leave_group_call(message.chat.id)
-    await message.reply_photo(
-                             photo="https://te.legra.ph/file/836a1883cf1dd024f1b7e.png", 
-                             caption="**⏹️ Music Ended**"
-    )
+    await message.reply_text("**⏹️ Music Ended**")
 
 
 @Client.on_message(commandpro(["reload", "refresh"]))

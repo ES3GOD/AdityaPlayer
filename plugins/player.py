@@ -347,7 +347,7 @@ async def play(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             reply_markup=keyboard,
-            caption="**➕ Added to Queue**\n**[Get Additional Information 💡]({})**\n\n**📫 Requested By:** **{}**\n**💭 Chat: [{}..](https://t.me/codexun)**".format(
+            caption="**➕ Added to Queue**\n**[Get Additional Information 💡]({})**\n\n**📫 Requested By:** **{}**\n**🧑‍🏭 Chat: [{}..](https://t.me/CoreFourxd)**".format(
                 url, message.from_user.mention(), message.chat.title
             ),
         )
@@ -365,7 +365,7 @@ async def play(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             reply_markup=keyboard,
-            caption="**[Get Additional Information 💡]({})**\n\n**📫 Requested By:** **{}**\n**💭 Chat: [{}..](https://t.me/codexun)**".format(
+            caption="**[Get Additional Information 💡]({})**\n\n**📫 Requested By:** **{}**\n**🧑‍🏭 Chat: [{}..](CoreFourxd)**".format(
                 url, message.from_user.mention(), message.chat.title
             ),
         )

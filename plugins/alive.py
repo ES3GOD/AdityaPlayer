@@ -33,7 +33,7 @@ async def _human_time_duration(seconds):
 @Client.on_message(command("start") & filters.private & ~filters.edited)
 async def start_(client: Client, message: Message):
     await event.reply("Hello! Welcome To Music Bot Based On Pyrogram",
-                    reply_markup=InlineKeyboardMarkup( [[
+    reply_markup=InlineKeyboardMarkup( [[
             InlineKeyboardButton("⚙️Support", url="https://t.me/CoreFourxd), 
             ],[
             InlineKeyboardButton("🤖Repo", url="https://t.me/Pratheek06"), 

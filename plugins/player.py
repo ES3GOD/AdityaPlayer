@@ -346,7 +346,8 @@ async def play(_, message: Message):
         position = await queues.put(chat_id, file=file_path)
         await message.reply_photo(
             photo="final.png",
-            caption="**[Get Additional Information 💡]({})**\n\n**⑆ User :** **{}**\n**⑆ Group : [{}..](https://t.me/codexun)**".format(
+            reply_markup=keyboard,
+            caption="**➕ Added to Queue**»** `{position}`\n**[Get Additional Information 💡]({})**\n\n**📫 Requested By:** **{}**\n**💭 Chat: [{}..](https://t.me/codexun)**".format(
                 url, message.from_user.mention(), message.chat.title
             ),
         )
@@ -364,7 +365,7 @@ async def play(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             reply_markup=keyboard,
-            caption="**[Get Additional Information 💡]({})**\n\n**⑆ User :** **{}**\n**⑆ Group : [{}..](https://t.me/codexun)**".format(
+            caption="**[Get Additional Information 💡]({})**\n\n**📫 Requested By:** **{}**\n**💭 Chat: [{}..](https://t.me/codexun)**".format(
                 url, message.from_user.mention(), message.chat.title
             ),
         )
